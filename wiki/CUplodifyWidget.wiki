@@ -1,0 +1,86 @@
+#summary Обвертка для плагина Uploadify jQuery plugin
+
+[http://www.uploadify.com/ http://www.uploadify.com/_images/uploadify-logo.jpg]
+
+== Установка и настройка ==
+----------------
+==== Настраиваем наше приложение: ====
+===== config/main.php: =====
+{{{
+return array(
+    'import'=>array(
+        'ext.CUplodifyWidget.*',
+    ),
+);
+}}}
+
+==== Используем в представлении: ====
+===== views/form.php: =====
+{{{
+<?php $this->widget('CUplodifyWidget', array(
+        'model' => $model,
+        'modelAttribute' => 'fileAttribute',
+        'settings' => array(),
+    )); ?>
+}}}
+
+=== Настройки ===
+Виджет принимает три параметра
+ * model - Модель
+ * modelAttribute - Атрибут модели file-типа
+ * [http://www.uploadify.com/documentation Настройки uplodify]
+
+ параметры model и modelAttribute нужны для генерации поля
+  `CHtml::activeFileField($this->model, $this->modelAttribute, array('id' => $this->getSettings('id')));`
+
+==== Пример использования: ====
+Для использования нам нужно:
+ # модель-форма 
+ # и экшен контролер
+
+==== Пример модели: ====
+{{{
+class UploadifyFile extends CFormModel {
+    public $uploadifyFile;
+
+    public function rules() {
+        return array(
+            array('uploadifyFile', 'file',
+                  'maxSize' => 1024*1024*1024,
+                  'types' => 'jpg, png, gif, txt'),
+        );
+    }   
+}
+}}}
+
+==== Пример экшена: ====
+{{{
+class SwfUploadUploadAction extends CAction{
+		public $folder;
+    public function run() {
+        $folder = $this->folder;
+        if ($folder === FALSE) {
+            throw new CException(Yii::t(__CLASS__, "Folder not exists.", array()));
+        }
+        if (isset($_FILES['UploadifyFile']) === TRUE) {
+            $model = new UploadifyFile;
+            $model->attributes = array ('uploadifyFile' => '');
+            $model->uploadifyFile = CUploadedFile::getInstance($model, 'uploadifyFile');
+            if ($model->validate() === FALSE) {
+                throw new CException(Yii::t(__CLASS__, "Invalid file.", array()));
+            }
+            if ($model->uploadifyFile->saveAs($folder . DIRECTORY_SEPARATOR
+                  . $model->uploadifyFile->getName()) === FALSE) {
+                throw new CException(Yii::t(__CLASS__, "Upload error.", array()));
+            }
+            else {
+                die("Upload success");
+            }
+        }
+        else {
+            throw new CException(Yii::t(__CLASS__, "File not sent.", array()));
+        }
+        throw new CException(Yii::t(__CLASS__, 'Unknown error.', array()));
+    }
+}
+}}}
