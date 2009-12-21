@@ -1,6 +1,37 @@
 #summary Руководство по разработке
 #labels Featured
 
+= Структура репозитария =
+Репозитарий имеет структуру, максимально похожую на реальное приложение.
+
+{{{
+app
+  commands
+  components
+  config
+    main.php
+    routes.php
+    test.php — конифгурация, используемая в тестах
+  controllers
+  extensions — расширения
+  models
+  runtime
+  tests — тесты
+    fixtures — данные для инициализации БД
+    functional — функциональные тесты
+    report
+    sql — структуры БД, необходимые для некоторых расширений
+    unit — модульные тесты
+    rununit.bat — запускает все модульные тесты
+    bootstrap.php
+    WebTestCase.php
+    readme_ru.txt — очень полезный файлик
+    phpunit.xml
+  views
+framework
+www
+}}}  
+
 = Именование расширений =
 Для предотвращения путаницы все классы расширений именуются в одном стиле.
 
