@@ -13,7 +13,13 @@ app
     routes.php
     test.php — конифгурация, используемая в тестах
   controllers
-  extensions — расширения
+  extensions
+    yiiext — расширения
+      components - комплекты компонентов, которые нельзя однозначно отнести к другим категориям
+      behaviors - поведения
+        model - поведения моделей, в том числе и ar
+      renderers - обработчики видов
+      widgets - виджеты
   models
   runtime
   tests — тесты
