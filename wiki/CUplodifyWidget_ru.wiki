@@ -1,4 +1,5 @@
 #summary Обвертка для плагина Uploadify jQuery plugin
+#labels Deprecated
 
 [http://www.uploadify.com/ http://www.uploadify.com/_images/uploadify-logo.jpg]
 
