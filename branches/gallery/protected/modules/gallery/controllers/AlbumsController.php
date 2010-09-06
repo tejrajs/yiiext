@@ -12,6 +12,10 @@ class AlbumsController extends Controller
 	public $defaultAction='list';
 
 	public $title='';
+	public $description='';
+	public $prevLink='';
+	public $nextLink='';
+	public $breadcrumbs=array();
 	public $actions=array();
 
 	/**

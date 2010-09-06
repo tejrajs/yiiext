@@ -1,5 +1,6 @@
 <?php
 $this->title=Yii::t('yiiext',$model->getIsNewRecord() ? 'Create album' : 'Edit album - {album}',array('{album}'=>$model->name));
+$this->breadcrumbs['Back to Album']=array('albums/view','id'=>$model->id);
 
 echo CHtml::errorSummary($model);
 

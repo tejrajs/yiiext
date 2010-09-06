@@ -12,6 +12,10 @@ class PhotosController extends Controller
 	public $defaultAction='list';
 
 	public $title='';
+	public $description='';
+	public $prevLink='';
+	public $nextLink='';
+	public $breadcrumbs=array();
 	public $actions=array();
 
 	/**
@@ -32,15 +36,25 @@ class PhotosController extends Controller
 	}
 	public function actionView()
 	{
-		if(intval($id=Yii::app()->getRequest()->getParam('id',NULL))>0)
+		if($id=EGalleryModule::getQueryId())
 		{
-			if($photo=EPhotoModel::model()->findByPk($id))
+			if($model=EPhotoModel::model()->findByPk($id))
 			{
-				$this->render('view',array('model'=>$photo,));
-				return;
+				$nextModel=$model->getNextPhoto();
+				if($nextModel===null)
+					$nextModel=$model->album->getFirstPhoto();
+				$prevModel=$model->getPrevPhoto();
+				if($prevModel===null)
+					$prevModel=$model->album->getLastPhoto();
+
+				return $this->render('view',array(
+					'model'=>$model,
+					'nextModel'=>$nextModel,
+					'prevModel'=>$prevModel,
+				));
 			}
 		}
 
-		throw new CHttpException(404,'Photo cannot found!');
+		throw new CHttpException(404,Yii::t('yiiext','Photo not found!'));
 	}
 }

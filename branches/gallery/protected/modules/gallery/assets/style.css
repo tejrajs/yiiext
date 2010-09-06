@@ -38,6 +38,10 @@
 	display:block;
 	zoom:1;
 }
+.yg-left
+{
+	float:left;
+}
 .yg-right
 {
 	float:right;
@@ -100,7 +104,13 @@ padding:6px 0;
 .yg-header h2
 {
 	color:#1c2a47;
-	font-size:16px;
+	font-size:20px;
+	margin:1px 0;
+}
+.yg-header h4
+{
+	font-size:11px;
+	margin:1px 0;
 }
 .yg-header .yg-header-actions
 {
@@ -164,9 +174,7 @@ padding:6px 0;
 	cursor:pointer;
 	display:-moz-inline-box;
 	display:inline-block;
-	font-family:'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
-	font-size:11px;
-	font-weight:bold;
+	font:bold 11px 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
 	margin:0;
 	outline:none;
 	*overflow:visible;
@@ -246,4 +254,16 @@ padding:6px 0;
 {
 	font-size:90%;
 	color:#666;
+}
+.yg-album-metadata, .yg-photo-metadata
+{
+	margin-top:20px;
+}
+.yg-metadata-label
+{
+	color:#AAA;
+}
+.yg-metadata-value
+{
+	margin-bottom:10px;
 }

@@ -15,7 +15,9 @@ Yii::import('zii.widgets.CBaseListView');
 class EGalleryGrid extends CBaseListView
 {
 	public $columnsCount=5;
-	public $thumbAction; 
+	public $thumbAction;
+	public $template='{items}';
+
 	/**
 	 * Initializes the gallery view.
 	 */

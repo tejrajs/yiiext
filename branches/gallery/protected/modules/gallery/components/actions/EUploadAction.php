@@ -45,23 +45,14 @@ class EUploadAction extends CAction
 			$this->beforeSave();
 			
 			if(!$model->file->saveAs($this->path.'/'.$albumId.'/'.$this->filename))
-				self::showError(Yii::t('yiiext','Cannot save file "{file}".',array('{file}'=>$this->path.'/'.$albumId.'/'.$this->filename)));
+				throw new CHttpException(404,Yii::t('yiiext','Cannot save file "{file}".',array('{file}'=>$this->path.'/'.$albumId.'/'.$this->filename)));
 
 			$this->afterSave();
+
+			echo Yii::t('yiiext',"File success saved.");
 		}
 		else
-			self::showError(Yii::t('yiiext',"File not sent.",array()));
-	}
-	/**
-	 * @static
-	 * @throws CHttpException
-	 * @param string $error
-	 * @param integer $code
-	 * @return void
-	 */
-	static protected function showError($error,$code=500)
-	{
-		throw new CHttpException($code,$error);
+			throw new CHttpException(404,Yii::t('yiiext',"File not sent."));
 	}
 	public function getFile()
 	{

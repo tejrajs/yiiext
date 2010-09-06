@@ -1,5 +1,6 @@
 <?php
 $this->title=Yii::t('yiiext','Edit album - {album}',array('{album}'=>$model->name));
+$this->breadcrumbs['Back to Album']=array('albums/view','id'=>$model->id);
 
 echo CHtml::openTag('div',array('class'=>'yg-album-form'));
 echo CHtml::beginForm('','post',array('name'=>'delete','id'=>'delete','enctype'=>'multipart/form-data'));

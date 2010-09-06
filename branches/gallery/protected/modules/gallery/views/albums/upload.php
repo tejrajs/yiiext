@@ -1,5 +1,6 @@
 <?php
 $this->title=Yii::t('yiiext','Upload Photos - {album}',array('{album}'=>$album->name));
+$this->breadcrumbs['Back to Album']=array('albums/view','id'=>$album->id);
 
 $this->widget('ext.yiiext.widgets.uploadify.EUploadifyWidget',array(
 	'model'=>$model,
@@ -13,9 +14,10 @@ $this->widget('ext.yiiext.widgets.uploadify.EUploadifyWidget',array(
 			//$.each(fileObj,function(i,v){alert(i+": "+v);});
 			$.each(errorObj,function(i,v){alert(i+": "+v);});
 		}',*/
-		//'onComplete' => 'function(event,queueID,fileObj,response,data){alert(response);}',
+		//'onComplete'=>'function(event,queueID,fileObj,response,data){alert(response);}',
+		//'onAllComplete'=>'function(event,data){alert('All complete.');}',
 		'script'=>$this->createUrl('albums/uploadify',array('id'=>$album->id)),
-		'auto'=>!true,
+		'auto'=>false,
 		'multi'=>true,
 		'buttonText'=>'Select Photos',
 	),

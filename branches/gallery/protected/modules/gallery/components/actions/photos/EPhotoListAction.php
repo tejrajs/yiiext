@@ -6,7 +6,6 @@
  * @link http://code.google.com/p/yiiext/
  * @license http://www.opensource.org/licenses/mit-license.php
  */
-
 /**
  * EPhotoListAction album editing action.
  *
@@ -16,8 +15,6 @@
  */
 class EPhotoListAction extends CAction
 {
-	public $albumClass='EAlbumModel';
-	public $modelClass='EPhotoModel';
 	public $view='list';
 	public $viewData=array(
 		'columnsCount'=>5,
@@ -25,15 +22,13 @@ class EPhotoListAction extends CAction
 
 	public function run()
 	{
-		$modelClass=$this->modelClass;
-		$albumClass=$this->albumClass;
-		$album=$this->loadAlbum();
+		$album=EGalleryModule::album()->findByPk(EGalleryModule::getQueryId());
 		$controller=$this->getController();
 
 		if($album===null)
-			throw new CHttpException(404,'Album not found!');
+			throw new CHttpException(404,Yii::t('yiiext','Album not found!'));
 
-		$dataProvider=new CActiveDataProvider($modelClass,array(
+		$dataProvider=new CActiveDataProvider(EGalleryModule::getPhotoClass(),array(
 			'criteria'=>array(
 				'condition'=>'`albumId`='.$album->id,
 			),
@@ -45,16 +40,5 @@ class EPhotoListAction extends CAction
 		$this->viewData['album']=$album;
 		$this->viewData['dataProvider']=$dataProvider;
 		$controller->render($this->view,$this->viewData);
-	}
-	protected function loadAlbum()
-	{
-		$albumClass=$this->albumClass;
-		$albumId=$this->getAlbumId();
-
-		return CActiveRecord::model($albumClass)->with('photosCount')->findByPk($albumId,array('select'=>'id,name'));
-	}
-	protected function getAlbumId()
-	{
-		return intval($id=Yii::app()->getRequest()->getParam('id',0));
 	}
 }
